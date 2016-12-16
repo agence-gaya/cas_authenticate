@@ -1,0 +1,19 @@
+{
+  "name": "gaya/cas-authenticate",
+  "description": "Typo3 plugin to connect to a CAS server",
+  "require": {
+    "typo3/cms": "~6.2.0 || ~7.6.0"
+  },
+  "type": "typo3-cms-extension",
+  "keywords": [
+    "TYPO3 CMS"
+  ],
+  "homepage": "https://github.com/agence-gaya/cas_authenticate",
+  "license": "GPL-2.0+",
+  "version": "1.0.0",
+  "autoload": {
+    "psr-4": {
+      "Gaya\\CasAuthenticate\\": "Classes/"
+    }
+  }
+}

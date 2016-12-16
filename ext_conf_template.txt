@@ -1,0 +1,35 @@
+# cat=basic; type=string; label=Enable CAS authentication:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+enabled = 1
+
+# cat=basic; type=string; label=The version of the CAS server:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+serverVersion = 2.0
+
+# cat=basic; type=string; label=The hostname of the CAS server:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+serverHostname =
+
+# cat=basic; type=string; label=The port the CAS server is running on:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+serverPort = 443
+
+# cat=basic; type=string; label=The URI the CAS server is responding on:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+serverUri =
+
+# cat=basic; type=string; label=Allow phpCAS to change the session_id:Single Sign Out/handleLogoutRequests is based on that change. You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+changeSessionID = 0
+
+# cat=basic; type=string; label=The serviceValidate URL:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+serverServiceValidateUrl =
+
+# cat=basic; type=string; label=Absolute directory where CAS certificates are stores
+certificateDirectory =
+
+# cat=basic; type=string; label=CAS server CA certificate filename:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+casServerCACertificate =
+
+# cat=basic; type=string; label=List of comma-separated fegroups to assign after fe_user creation:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+userGroupIdList =
+
+# cat=basic; type=int; label=Feusers storage pid:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
+userPid =
+
+# cat=basic; type=int; label=Enable phpCAS debugging:0 : Disabled, -1: Enabled
+phpCasSetDebug = 0
