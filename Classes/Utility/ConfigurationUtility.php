@@ -19,18 +19,9 @@ class ConfigurationUtility implements \TYPO3\CMS\Core\SingletonInterface {
 		$extConfVars = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cas_authenticate']);
 
 		// Initialize server CAS parameters.
-		$this->configuration['serverHostname'] = $extConfVars['serverHostname'];
-		$this->configuration['serverPort'] = $extConfVars['serverPort'];
-		$this->configuration['serverUri'] = $extConfVars['serverUri'];
-		$this->configuration['changeSessionID'] = $extConfVars['changeSessionID'];
-		$this->configuration['serverServiceValidateUrl'] = $extConfVars['serverServiceValidateUrl'];
-		$this->configuration['certificateDirectory'] = $extConfVars['certificateDirectory'];
-		$this->configuration['casServerCACertificate'] = $extConfVars['casServerCACertificate'];
+		$this->configuration = $extConfVars;
 		$this->configuration['fixedServiceUrl'] = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/?logintype=login';
 		$this->configuration['fixedServiceLogoutUrl'] = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');
-		$this->configuration['userGroupIdList'] = $extConfVars['userGroupIdList'];
-		$this->configuration['userPid'] = $extConfVars['userPid'];
-		$this->configuration['phpCasSetDebug'] = $extConfVars['phpCasSetDebug'];
 
 		$domain = GeneralUtility::getIndpEnv('HTTP_HOST');
 
@@ -47,7 +38,7 @@ class ConfigurationUtility implements \TYPO3\CMS\Core\SingletonInterface {
 			}
 
 			if (count($newValues) > 1) {
-				GeneralUtility::sysLog("Duplicate entry for domain " . $domain . " for key" . $key . ". Using " . $this->conf[$key], 'gaya_httperror', GeneralUtility::SYSLOG_SEVERITY_WARNING);
+				GeneralUtility::sysLog("Duplicate entry for domain " . $domain . " for key" . $key . ". Using " . $this->configuration[$key], 'gaya_httperror', GeneralUtility::SYSLOG_SEVERITY_WARNING);
 			}
 
 			$newValue = array_shift($newValues);
