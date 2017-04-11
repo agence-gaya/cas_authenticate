@@ -46,6 +46,10 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 				$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, 'onAfterUserAuthenticatedByCas', $signalArguments);
 				$OK = $signalArguments[0];
 			}
+
+			if ($OK < 0 && $this->configurationUtility->get('redirectToUrlOnFailedAuth')) {
+				\TYPO3\CMS\Core\Utility\HttpUtility::redirect($this->configurationUtility->get('redirectToUrlOnFailedAuth'));
+			}
 		}
 
 		return $OK;
