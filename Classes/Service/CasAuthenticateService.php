@@ -34,12 +34,17 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 	 */
 	public function authUser($user) {
 		$OK = false;
+
 		if ($this->mode == 'authUserFE') {
 			// user is the user data we read above, so if it's filled with data, it means
 			// the login worked great and that we have a valid user, so all we need to do now is
 			// authenticate him... 200 means the user is good to go
 			if ($user) {
 				$OK = 200;
+
+				$signalArguments = array($OK, $user, $this->configurationUtility->get('userGroupIdList'));
+				$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, 'onAfterUserAuthenticatedByCas', $signalArguments);
+				$OK = $signalArguments[0];
 			}
 		}
 
