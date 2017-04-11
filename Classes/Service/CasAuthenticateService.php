@@ -16,10 +16,16 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 	protected $configurationUtility;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * CasAuthenticateService constructor.
 	 */
 	public function __construct() {
 		$this->configurationUtility = GeneralUtility::makeInstance(\GAYA\CasAuthenticate\Utility\ConfigurationUtility::class);
+		$this->signalSlotDispatcher = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
 	}
 
 	/**
@@ -36,6 +42,7 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 				$OK = 200;
 			}
 		}
+
 		return $OK;
 	}
 
@@ -68,7 +75,6 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 				}
 				// Vérifier l'existence du compte Typo3 pour l'utilisateur (username ou uid identique ? à voir suivant les informations fournies pas le CAS de l'utc)
 				$user = $this->fetchUserRecord($username);
-
 				if (!$user) {
 					// Le compte Typo3 n'existe pas il faut le créer
 					// Récupération du groupe
@@ -78,11 +84,20 @@ class CasAuthenticateService extends \TYPO3\CMS\Sv\AbstractAuthenticationService
 					$user['username'] = $username;
 					$user['pid'] = $this->configurationUtility->get('userPid');
 				}
+
+				$casAttributes = \phpCAS::getAttributes();
+
 				// On met à jour les information du user avec celles du cas
-				$this->updateFrontendUserWithCasServerData($user, \phpCAS::getAttributes());
+				$this->updateFrontendUserWithCasServerData($user, $casAttributes);
+
+				$signalArguments = array($user, $casAttributes, $this->configurationUtility->get('userGroupIdList'));
+				$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, 'onBeforeWriteFrontendUserInDatabase', $signalArguments);
+				$user = $signalArguments[0];
+
 				$this->writeFrontendUserInDatabase($user);
 			}
 		}
+
 		return $user;
 	}
 
