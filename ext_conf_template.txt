@@ -31,5 +31,8 @@ userGroupIdList =
 # cat=basic; type=int; label=Feusers storage pid:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:1|second-website.local:100
 userPid =
 
+# cat=basic; type=string; label=Redirect to this URL on failed auth:You can define multiple domain configuration (multi-site) by prefixing value with domain. Ex: first-website.local:http://example.com|second-website.local:http://other-example.com
+redirectToUrlOnFailedAuth =
+
 # cat=basic; type=int; label=Enable phpCAS debugging:0 : Disabled, -1: Enabled
 phpCasSetDebug = 0
